@@ -8,7 +8,9 @@ export default createGlobalStyle`
   }
 
   body {
-    margin: 0;
-    font-family: system-ui;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
