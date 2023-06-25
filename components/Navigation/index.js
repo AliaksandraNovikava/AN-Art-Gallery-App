@@ -31,7 +31,7 @@ export default function Navigation() {
     <NavBar>
       <StyledLink href="/">Spotlight</StyledLink>
       <StyledLink href="/art-pieces">Art Pieces</StyledLink>
-      <StyledLink href="#">Favorites</StyledLink>
+      <StyledLink href="/favorites">Favorites</StyledLink>
     </NavBar>
   );
 }

@@ -1,6 +1,8 @@
 import GlobalStyle from "../styles";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { uid } from "uid";
 import Layout from "../components/Layout/index.js";
 import styled from "styled-components";
 
@@ -18,6 +20,7 @@ const fetcher = async (URL) => {
 };
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
   const [artPiecesInfo, setArtPiecesInfo] = useState([]);
   const { data, error, isLoading } = useSWR(
     "https://example-apis.vercel.app/api/art",
@@ -41,13 +44,18 @@ export default function App({ Component, pageProps }) {
   `;
 
   function handleToggleFavorite(slug) {
-    setArtPiecesInfo(
-      artPiecesInfo.map((artPieceInfo) =>
-        artPieceInfo.slug === slug
-          ? { ...artPieceInfo, isFavorite: !artPieceInfo.isFavorite }
-          : artPieceInfo
-      )
-    );
+    // setArtPiecesInfo(
+    //   artPiecesInfo.map((artPieceInfo) =>
+    //     artPieceInfo.slug === slug
+    //       ? { ...artPieceInfo, isFavorite: !artPieceInfo.isFavorite }
+    //       : artPieceInfo
+    //   )
+    // );
+  }
+
+  function handleAddToFavorites() {
+    setArtPiecesInfo([{ ...data, id: uid() }], ...artPiecesInfo);
+    router.push("/favorites");
   }
 
   return (
@@ -59,7 +67,7 @@ export default function App({ Component, pageProps }) {
           pieces={data}
           isFavorite={data.isFavorite}
           artPiecesInfo={artPiecesInfo}
-          onToggleFavorite={handleToggleFavorite}
+          onAddToFavorites={handleAddToFavorites}
         />
       </Layout>
     </Device>
