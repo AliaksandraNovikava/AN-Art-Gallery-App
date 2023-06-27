@@ -1,7 +1,7 @@
 import ArtPieceDetails from "../../components/ArtPieceDetails/index.js";
 import { useRouter } from "next/router";
 
-export default function ArtPieceDetailPage({ pieces, artPiecesInfo }) {
+export default function ArtPieceDetailPage({ pieces }) {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -11,7 +11,6 @@ export default function ArtPieceDetailPage({ pieces, artPiecesInfo }) {
   return (
     <div>
       <ArtPieceDetails
-        artPiecesInfo={artPiecesInfo}
         image={imageSource}
         title={name}
         artist={artist}

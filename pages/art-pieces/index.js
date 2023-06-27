@@ -1,17 +1,9 @@
 import ArtPieces from "../../components/ArtPieces/index.js";
 
-export default function ArtPiecesPage({
-  pieces,
-  artPiecesInfo,
-  onToggleFavorite,
-}) {
+export default function ArtPiecesPage({ pieces, onToggleFavorite }) {
   return (
     <div>
-      <ArtPieces
-        pieces={pieces}
-        artPiecesInfo={artPiecesInfo}
-        onToggleFavorite={onToggleFavorite}
-      />
+      <ArtPieces pieces={pieces} onToggleFavorite={onToggleFavorite} />
     </div>
   );
 }

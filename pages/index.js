@@ -2,15 +2,15 @@ import Spotlight from "../components/Spotlight/index.js";
 
 export default function SpotlightPage({
   pieces,
-  artPiecesInfo,
   onToggleFavorite,
+  artPiecesInfo,
 }) {
   return (
     <div>
       <Spotlight
         pieces={pieces}
-        artPiecesInfo={artPiecesInfo}
         onToggleFavorite={onToggleFavorite}
+        artPiecesInfo={artPiecesInfo}
       />
     </div>
   );

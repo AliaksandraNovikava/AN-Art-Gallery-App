@@ -6,15 +6,12 @@ export default function ArtPiecePreview({
   image,
   title,
   artist,
-  isFavorite,
-  onAddToFavorites,
+  pieces,
+  onToggleFavorite,
 }) {
   return (
     <ArtPieceContainer>
-      <FavoriteButton
-        isFavorite={isFavorite}
-        onAddToFavorites={onAddToFavorites}
-      />
+      <FavoriteButton pieces={pieces} onToggleFavorite={onToggleFavorite} />
       <Image src={image} alt={title} width={336} height={200} />
       <h2>
         {artist}: {title}

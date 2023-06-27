@@ -25,11 +25,12 @@ const ButtonContainer = styled.div`
   padding: 0.5em;
 `;
 
-export default function FavoriteButton({ isFavorite, onAddToFavorites }) {
+export default function FavoriteButton({ pieces, onToggleFavorite }) {
   return (
     <ButtonContainer>
-      <StyledButton onClick={onAddToFavorites} aria-label="favorite">
-        <Heart fill={isFavorite ? "red" : "lightgrey"} />
+      <StyledButton onClick={onToggleFavorite} aria-label="favorite">
+        {/* <Heart fill={pieces.isFavorite ? "red" : "lightgrey"} /> */}
+        <Heart fill={"lightgrey"} />
       </StyledButton>
     </ButtonContainer>
   );

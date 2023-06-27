@@ -1,10 +1,18 @@
 import GlobalStyle from "../styles";
 import useSWR from "swr";
-import { useRouter } from "next/router";
 import { useState } from "react";
-import { uid } from "uid";
 import Layout from "../components/Layout/index.js";
 import styled from "styled-components";
+
+const Device = styled.div`
+  position: relative;
+  display: block;
+  width: 368px;
+  height: 100vh;
+  border-radius: 10px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.12), 0 15px 12px rgba(0, 0, 0, 0.12);
+  overflow: auto;
+`;
 
 const fetcher = async (URL) => {
   const res = await fetch(URL);
@@ -20,8 +28,9 @@ const fetcher = async (URL) => {
 };
 
 export default function App({ Component, pageProps }) {
-  const router = useRouter();
   const [artPiecesInfo, setArtPiecesInfo] = useState([]);
+  // console.log(artPiecesInfo);
+
   const { data, error, isLoading } = useSWR(
     "https://example-apis.vercel.app/api/art",
     fetcher
@@ -33,29 +42,16 @@ export default function App({ Component, pageProps }) {
     return <div>loading...</div>;
   }
 
-  const Device = styled.div`
-    position: relative;
-    display: block;
-    width: 368px;
-    height: 100vh;
-    border-radius: 10px;
-    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.12), 0 15px 12px rgba(0, 0, 0, 0.12);
-    overflow: auto;
-  `;
-
   function handleToggleFavorite(slug) {
-    // setArtPiecesInfo(
-    //   artPiecesInfo.map((artPieceInfo) =>
-    //     artPieceInfo.slug === slug
-    //       ? { ...artPieceInfo, isFavorite: !artPieceInfo.isFavorite }
-    //       : artPieceInfo
-    //   )
-    // );
-  }
-
-  function handleAddToFavorites() {
-    setArtPiecesInfo([{ ...data, id: uid() }], ...artPiecesInfo);
-    router.push("/favorites");
+    setArtPiecesInfo((artPiecesInfo) => {
+      const info = artPiecesInfo.find((info) => info.slug === slug);
+      if (info) {
+        return artPiecesInfo.map((info) =>
+          info.slug === slug ? { ...info, isFavorite: !info.isFavorite } : info
+        );
+      }
+      return [...artPiecesInfo, { slug, isFavorite: true }];
+    });
   }
 
   return (
@@ -65,9 +61,8 @@ export default function App({ Component, pageProps }) {
         <Component
           {...pageProps}
           pieces={data}
-          isFavorite={data.isFavorite}
           artPiecesInfo={artPiecesInfo}
-          onAddToFavorites={handleAddToFavorites}
+          onToggleFavorite={handleToggleFavorite}
         />
       </Layout>
     </Device>
