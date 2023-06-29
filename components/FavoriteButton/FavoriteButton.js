@@ -5,17 +5,10 @@ const StyledButton = styled.button`
   position: relative;
   border: none;
   background-color: transparent;
-  /* filter: invert(98%) sepia(0%) saturate(0%) hue-rotate(239deg) brightness(108%)
-    contrast(101%); */
   width: 2.5em;
   height: 2.5em;
   padding: 0;
   cursor: pointer;
-
-  &:hover {
-    filter: invert(38%) sepia(48%) saturate(4041%) hue-rotate(340deg)
-      brightness(101%) contrast(107%);
-  }
 `;
 
 const ButtonContainer = styled.div`
@@ -25,12 +18,27 @@ const ButtonContainer = styled.div`
   padding: 0.5em;
 `;
 
-export default function FavoriteButton({ pieces, onToggleFavorite }) {
+export default function FavoriteButton({
+  slug,
+  artPiecesInfo,
+  onToggleFavorite,
+}) {
+  const toggledArtPieceInfo = artPiecesInfo.find(
+    (artPieceInfo) => artPieceInfo.slug === slug
+  ) ?? {
+    isFavorite: false,
+  };
+  const isFavorite = toggledArtPieceInfo.isFavorite;
+
   return (
     <ButtonContainer>
-      <StyledButton onClick={onToggleFavorite} aria-label="favorite">
-        {/* <Heart fill={pieces.isFavorite ? "red" : "lightgrey"} /> */}
-        <Heart fill={"lightgrey"} />
+      <StyledButton
+        onClick={() => {
+          onToggleFavorite(slug);
+        }}
+        aria-label="favorite"
+      >
+        <Heart fill={isFavorite ? "red" : "lightgrey"} />
       </StyledButton>
     </ButtonContainer>
   );

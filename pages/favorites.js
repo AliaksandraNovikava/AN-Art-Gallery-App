@@ -1,40 +1,41 @@
-import ArtPieces from "../components/ArtPieces/index.js";
-import FavoriteButton from "@/components/FavoriteButton/FavoriteButton.js";
-import Image from "next/image.js";
-import { useState } from "react";
+import ArtPiecePreview from "@/components/ArtPiecePreview";
+import Link from "next/link";
 
 export default function FavoritesPage({
   pieces,
   artPiecesInfo,
   onToggleFavorite,
 }) {
-  const favPieces = pieces.filter((piece) => piece.isFavorite);
+  const toggledArtPieces = artPiecesInfo.filter(
+    (artPieceInfo) => artPieceInfo.isFavorite
+  );
+  console.log(toggledArtPieces);
+
+  const favoriteArtPiecesSlugs = toggledArtPieces.map(
+    (artPiece) => artPiece.slug
+  );
+  const favoriteArtPieces = pieces.filter((piece) =>
+    favoriteArtPiecesSlugs.includes(piece.slug)
+  );
+
   return (
     <>
-      {/* <ArtPieces pieces={favPieces} onToggleFavorite={onToggleFavorite} /> */}
-      {pieces.map(({ slug, imageSource, name, artist }) => {
-        // find the movie in the state and destructure the isFavorite property
-        // if it is not in the state, default isFavorite to false
-        const { isFavorite } = artPiecesInfo.find(
-          (info) => info.slug === slug
-        ) ?? {
-          isFavorite: false,
-        };
-
+      {favoriteArtPieces.map(({ slug, imageSource, name, artist }) => {
         return (
-          <li key={slug}>
-            <FavoriteButton
-              pieces={pieces}
-              onToggleFavorite={onToggleFavorite}
-            />
-            <Image src={imageSource} alt={name} width={336} height={200} />
-            <h2>
-              {artist}: {name}
-            </h2>
-            {/* <button type="button" onClick={handleToggleFavorite(id)}>
-              {isFavorite ? "Remove from favorites" : "Add to favorites"}
-            </button> */}
-          </li>
+          <>
+            <div key={slug}>
+              <Link href={`/art-pieces/${slug}`}>
+                <ArtPiecePreview
+                  image={imageSource}
+                  title={name}
+                  artist={artist}
+                  artPiecesInfo={artPiecesInfo}
+                  onToggleFavorite={onToggleFavorite}
+                  slug={slug}
+                />
+              </Link>
+            </div>
+          </>
         );
       })}
     </>

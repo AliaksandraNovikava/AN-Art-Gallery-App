@@ -1,6 +1,6 @@
 import GlobalStyle from "../styles";
 import useSWR from "swr";
-import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 import Layout from "../components/Layout/index.js";
 import styled from "styled-components";
 
@@ -9,7 +9,7 @@ const Device = styled.div`
   display: block;
   width: 368px;
   height: 100vh;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.12), 0 15px 12px rgba(0, 0, 0, 0.12);
   overflow: auto;
 `;
@@ -28,8 +28,9 @@ const fetcher = async (URL) => {
 };
 
 export default function App({ Component, pageProps }) {
-  const [artPiecesInfo, setArtPiecesInfo] = useState([]);
-  // console.log(artPiecesInfo);
+  const [artPiecesInfo, setArtPiecesInfo] = useLocalStorageState("artPieces", {
+    defaultValue: [],
+  });
 
   const { data, error, isLoading } = useSWR(
     "https://example-apis.vercel.app/api/art",
