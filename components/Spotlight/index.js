@@ -19,13 +19,13 @@ export default function Spotlight({ pieces, artPiecesInfo, onToggleFavorite }) {
 
   return (
     <div>
-      <Link href={`/art-pieces/${randomSpotlight.slug}`}>
-        <ArtPieceContainer>
-          <FavoriteButton
-            onToggleFavorite={onToggleFavorite}
-            slug={randomSpotlight.slug}
-            artPiecesInfo={artPiecesInfo}
-          />
+      <ArtPieceContainer>
+        <FavoriteButton
+          onToggleFavorite={onToggleFavorite}
+          slug={randomSpotlight.slug}
+          artPiecesInfo={artPiecesInfo}
+        />
+        <Link href={`/art-pieces/${randomSpotlight.slug}`}>
           <StyledImage
             src={randomSpotlight.imageSource}
             alt={randomSpotlight.name}
@@ -37,8 +37,8 @@ export default function Spotlight({ pieces, artPiecesInfo, onToggleFavorite }) {
             <br></br>
             <strong>{randomSpotlight.name}</strong>
           </p>
-        </ArtPieceContainer>
-      </Link>
+        </Link>
+      </ArtPieceContainer>
     </div>
   );
 }

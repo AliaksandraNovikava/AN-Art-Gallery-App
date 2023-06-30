@@ -1,5 +1,4 @@
 import ArtPiecePreview from "@/components/ArtPiecePreview";
-import Link from "next/link";
 
 export default function FavoritesPage({
   pieces,
@@ -24,16 +23,14 @@ export default function FavoritesPage({
         return (
           <>
             <div key={slug}>
-              <Link href={`/art-pieces/${slug}`}>
-                <ArtPiecePreview
-                  image={imageSource}
-                  title={name}
-                  artist={artist}
-                  artPiecesInfo={artPiecesInfo}
-                  onToggleFavorite={onToggleFavorite}
-                  slug={slug}
-                />
-              </Link>
+              <ArtPiecePreview
+                image={imageSource}
+                title={name}
+                artist={artist}
+                artPiecesInfo={artPiecesInfo}
+                onToggleFavorite={onToggleFavorite}
+                slug={slug}
+              />
             </div>
           </>
         );
