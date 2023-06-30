@@ -1,8 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import ArtPieceContainer from "../ArtPieceContainer";
 import styled from "styled-components";
-import Link from "next/link";
 
 export default function ArtPiecePreview({
   image,
